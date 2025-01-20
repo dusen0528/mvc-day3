@@ -3,4 +3,29 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+        <listener>
+            <listener-class>com.nhnacademy.day3.student.listener.WebApplicationListener</listener-class>
+        </listener>
+    <!-- 404 -> /error  설정 -->
+    <error-page>
+        <exception-type>jakarta.servlet.ServletException</exception-type>
+        <location>/error</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/error</location>
+    </error-page>
+
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error</location>
+    </error-page>
+
+
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error</location>
+    </error-page>
 </web-app>
