@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>학생 등록/수정</h1>
-<form method="post" action="<%= request.getAttribute("student") != null ? "/student/update" : "/student/register" %>">
+<form method="post" action="<%= request.getAttribute("student") != null ? "/student/update.do" : "/student/register.do" %>">
   <table>
     <tr>
       <td>ID</td>

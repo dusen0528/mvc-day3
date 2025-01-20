@@ -9,7 +9,7 @@
 
 <body>
 <h1>학생 리스트</h1>
-<p><a href="/student/register" >학생(등록)</a></p>
+<p><a href="/student/register.do" >학생(등록)</a></p>
 <table>
   <thead>
   <tr>
@@ -28,9 +28,9 @@
       <td>${student.gender}</td>
       <td>${student.age}</td>
       <td>
-        <a href="/student/view?id=${student.id}">조회</a>
-        <a href="/student/update?id=${student.id}">수정</a>
-        <form method="post" action="/student/delete" style="display:inline;">
+        <a href="/student/view.do?id=${student.id}">조회</a>
+        <a href="/student/update.do?id=${student.id}">수정</a>
+        <form method="post" action="/student/delete.do" style="display:inline;">
           <input type="hidden" name="id" value="${student.id}" />
           <button type="submit">삭제</button>
         </form>

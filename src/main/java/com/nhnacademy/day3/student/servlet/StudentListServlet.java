@@ -40,7 +40,8 @@ public class StudentListServlet extends HttpServlet {
         제어권을 완전히 이동시킴 (URL 변경 없음)
          */
 
-        req.getRequestDispatcher("/student/list.jsp").forward(req,resp);
+//        req.getRequestDispatcher("/student/list.jsp").forward(req,resp);
+        req.setAttribute("view", "/student/list.jsp");
     }
 
 }

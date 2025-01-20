@@ -38,8 +38,8 @@ public class StudentViewServlet extends HttpServlet {
         req.setAttribute("update_link", "/student/update?id="+id);
         // /student/view.jsp <-- forward
 
-        req.getRequestDispatcher("/student/view.jsp").forward(req,resp);
-
+//        req.getRequestDispatcher("/student/view.jsp").forward(req,resp);
+        req.setAttribute("view", "/student/view.jsp");
     }
 
 
