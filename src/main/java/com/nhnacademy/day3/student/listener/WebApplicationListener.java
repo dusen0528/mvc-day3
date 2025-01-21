@@ -1,6 +1,7 @@
 package com.nhnacademy.day3.student.listener;
 
 import com.nhnacademy.day3.student.domain.Gender;
+import com.nhnacademy.day3.student.repository.JsonStudentRepository;
 import com.nhnacademy.day3.student.repository.MapStudentRepository;
 import com.nhnacademy.day3.student.domain.Student;
 import com.nhnacademy.day3.student.repository.StudentRepository;
@@ -18,7 +19,7 @@ public class WebApplicationListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
-        StudentRepository studentRepository = new MapStudentRepository();
+        StudentRepository studentRepository = new JsonStudentRepository();
 
         Random random = new Random();
 

@@ -1,5 +1,6 @@
 package com.nhnacademy.day3.student.servlet;
 
+import com.nhnacademy.day3.student.domain.Command;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,48 +33,64 @@ public class FrontServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         try {
-            // 실제 요청 처리할 servlet을 결정
-            String servletPath = resolveServlet(req.getServletPath());
-            RequestDispatcher rd = req.getRequestDispatcher(servletPath);
-            rd.include(req, resp);
 
-            // 실제 요청을 처리한 servlet이 'view'라는 request 속성값으로 view를 전달해 줌
-            String view = (String) req.getAttribute("view");
+            Command command = resolveCommand(req.getServletPath(), req.getMethod());
+
+            if (command == null) {
+                throw new ServletException("지원하지 않는 URL 입니다 " + req.getServletPath());
+            }
+            // Command 실행
+            String view = command.execute(req, resp);
+
             if (view.startsWith(REDIRECT_PREFIX)) {
                 log.error("redirect-url : {}", view.substring(REDIRECT_PREFIX.length()));
-                // `redirect:`로 시작하면 redirect 처리
                 resp.sendRedirect(view.substring(REDIRECT_PREFIX.length()));
             } else {
-                // redirect 아니면 JSP에게 view 처리를 위임하여 그 결과를 include시킴
-                rd = req.getRequestDispatcher(view);
+                // view 처리를 위임
+                RequestDispatcher rd = req.getRequestDispatcher(view);
                 rd.include(req, resp);
             }
-        } catch (Exception ex) {
-            // 공통 error 처리 - ErrorServlet 참고해서 처리
-            log.error("Error occurred: ", ex);
-            req.setAttribute("exception", ex);
-            req.setAttribute("error_message", ex.getMessage());
 
-            // forward - /error.jsp
+        } catch (Exception ex) {
+            log.error("Error occurred: ", ex);
+
+            // 에러 정보를 직접 설정
+            req.setAttribute("status_code", 404); // 또는 적절한 에러 코드
+            req.setAttribute("exception_type", ex.getClass().getName());
+            req.setAttribute("message", ex.getMessage());
+            req.setAttribute("exception", ex);
+            req.setAttribute("request_uri", req.getRequestURI());
+
             RequestDispatcher rd = req.getRequestDispatcher("/error.jsp");
             rd.forward(req, resp);
         }
     }
 
-    private String resolveServlet(String servletPath) {
-        String processingServlet = null;
-        if ("/student/list.do".equals(servletPath)) {
-            processingServlet = "/student/list";
-        } else if ("/student/view.do".equals(servletPath)) {
-            processingServlet = "/student/view";
-        } else if ("/student/update.do".equals(servletPath)) {
-            processingServlet = "/student/update";
-        } else if ("/student/delete.do".equals(servletPath)) {
-            processingServlet = "/student/delete";
+    private Command resolveCommand(String servletPath, String method) {
+        Command command = null;
+
+        if ("/error.do".equals(servletPath)) {
+            command = new ErrorController();
+        } else if ("/student/list.do".equals(servletPath) && "GET".equalsIgnoreCase(method)) {
+            command = new StudentListController();
+        } else if ("/student/view.do".equals(servletPath) && "GET".equalsIgnoreCase(method)) {
+            command = new StudentViewController();
         } else if ("/student/register.do".equals(servletPath)) {
-            processingServlet = "/student/register";
+            if ("GET".equalsIgnoreCase(method)) {
+                command = new StudentRegisterFormController();
+            } else if ("POST".equalsIgnoreCase(method)) {
+                command = new StudentRegisterController();
+            }
+        } else if ("/student/update.do".equals(servletPath)) {
+            if ("GET".equalsIgnoreCase(method)) {
+                command = new StudentUpdateFormController();
+            } else if ("POST".equalsIgnoreCase(method)) {
+                command = new StudentUpdateController();
+            }
+        } else if ("/student/delete.do".equals(servletPath) && "POST".equalsIgnoreCase(method)) {
+            command = new StudentDeleteController();
         }
-        // 실행할 servlet 결정하기
-        return processingServlet;
+
+        return command;
     }
 }
