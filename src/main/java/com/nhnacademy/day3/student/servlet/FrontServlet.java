@@ -23,7 +23,7 @@ resolveServlet 메소드는 URL에 따라 실제 처리할 서블릿을 결정�
 예외 처리를 통해 오류 상황을 일관되게 관리합니다.
  */
 @Slf4j
-@WebServlet(name = "frontServlet", urlPatterns = "*.do")
+@WebServlet(name = "frontServlet", urlPatterns = "/")
 public class FrontServlet extends HttpServlet {
     private static final String REDIRECT_PREFIX = "redirect:";
     private ControllerFactory controllerFactory;  // ControllerFactory 추가

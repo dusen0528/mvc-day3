@@ -396,3 +396,23 @@ public class DiTest {
     }
 }
 ```
+
+---
+FrontServlet에서 처리받던 *.do 가 이젠 필요없을거 같아 이렇게 수정해도 되지 않을까?
+URL 패턴과 서블릿 매핑
+1.	`@WebServlet(name = "frontServlet", urlPatterns = "/")`
+3.	이 설정은 모든 요청을 FrontServlet으로 라우팅합니다. “/” 패턴은 모든 URL에 매칭되기 때문입니다.
+2.	톰캣의 기본 서블릿 (DefaultServlet) 덮어쓰기
+“/” 패턴을 사용하면 톰캣의 DefaultServlet 설정을 덮어쓰게 됩니다. DefaultServlet은 정적 리소스(HTML, CSS, JavaScript, 이미지 등)를 처리하는 역할을 합니다.
+3.	정적 리소스 접근 제한
+FrontServlet이 모든 요청을 처리하게 되므로, 정적 리소스에 대한 직접적인 접근이 제한됩니다.
+해결 방안
+1.	URL 패턴 변경
+3.	FrontServlet의 URL 패턴을 “.do”나 “/app/“와 같이 변경하여 특정 요청만 처리하도록 할 수 있습니다.
+2.	정적 리소스 처리 로직 추가
+FrontServlet 내에서 정적 리소스 요청을 식별하고 적절히 처리하는 로직을 추가할 수 있습니다.
+3.	리소스 핸들러 설정 (Spring MVC 사용 시)
+Spring MVC를 사용하는 경우, 리소스 핸들러를 설정하여 정적 리소스 요청을 처리할 수 있습니다.
+4.	서블릿 필터 사용
+정적 리소스 요청을 식별하고 DefaultServlet으로 전달하는 필터를 구현할 수 있습니다.
+이러한 방법들을 통해 FrontServlet이 모든 요청을 처리하면서도 정적 리소스에 대한 접근을 가능하게 할 수 있습니다.
