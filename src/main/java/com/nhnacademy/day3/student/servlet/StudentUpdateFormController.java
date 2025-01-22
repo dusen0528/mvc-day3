@@ -7,7 +7,7 @@ import com.nhnacademy.day3.student.repository.StudentRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@RequestMapping(value = "/student/update.do", method=RequestMapping.Method.GET)
+@RequestMapping(value = "/student/update", method=RequestMapping.Method.GET)
 public class StudentUpdateFormController implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

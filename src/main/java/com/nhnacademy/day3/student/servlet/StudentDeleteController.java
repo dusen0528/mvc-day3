@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@RequestMapping(value = "/student/delete.do", method = RequestMapping.Method.POST)
+@RequestMapping(value = "/student/delete", method = RequestMapping.Method.POST)
 public class StudentDeleteController implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -15,7 +15,7 @@ public class StudentDeleteController implements Command {
         String id = request.getParameter("id");
         studentRepository.deleteById(id);
 
-        return "redirect:/student/list.do";
+        return "redirect:/student/list";
 
     }
 }

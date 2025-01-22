@@ -21,6 +21,7 @@ public class WebAppInitializer implements ServletContainerInitializer {
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
 
+
         ControllerFactory controllerFactory = new ControllerFactory();
         controllerFactory.init(c);
         ctx.setAttribute("controllerFactory", controllerFactory);

@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 
-@RequestMapping(value = "/student/view.do", method= RequestMapping.Method.GET)
+@RequestMapping(value = "/student/view", method= RequestMapping.Method.GET)
 public class StudentViewController implements Command {
 
     @Override

@@ -5,7 +5,7 @@ import com.nhnacademy.day3.student.controller.Command;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@RequestMapping(value = "/student/register.do", method = RequestMapping.Method.GET)
+@RequestMapping(value = "/student/register", method = RequestMapping.Method.GET)
 public class StudentRegisterFormController implements Command {
 
     @Override

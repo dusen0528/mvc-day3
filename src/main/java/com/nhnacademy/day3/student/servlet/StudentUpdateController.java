@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@RequestMapping(value = "/student/update.do", method = RequestMapping.Method.POST)
+@RequestMapping(value = "/student/update", method = RequestMapping.Method.POST)
 public class StudentUpdateController implements Command {
     private StudentRepository studentRepository;
 

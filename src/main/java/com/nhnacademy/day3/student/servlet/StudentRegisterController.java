@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping(value = "/student/register.do", method = RequestMapping.Method.POST)
+@RequestMapping(value = "/student/register", method = RequestMapping.Method.POST)
 public class StudentRegisterController implements Command {
 
 
@@ -45,6 +45,6 @@ public class StudentRegisterController implements Command {
         // redirect /student/view?id=student1
 //        resp.sendRedirect("/student/view?id="+id);
 
-        return "redirect:/student/view.do?id=" + student.getId();
+        return "redirect:/student/view?id=" + student.getId();
     }
 }

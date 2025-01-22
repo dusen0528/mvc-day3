@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-@RequestMapping(value = "/student/list.do", method = RequestMapping.Method.GET)
+@RequestMapping(value = "/student/list", method = RequestMapping.Method.GET)
 @Slf4j
 public class StudentListController implements Command {
 
