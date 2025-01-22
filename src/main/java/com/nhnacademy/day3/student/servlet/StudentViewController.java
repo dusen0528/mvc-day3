@@ -1,23 +1,16 @@
 package com.nhnacademy.day3.student.servlet;
 
-import com.nhnacademy.day3.student.domain.Command;
+import com.nhnacademy.day3.student.annotation.RequestMapping;
+import com.nhnacademy.day3.student.controller.Command;
 import com.nhnacademy.day3.student.domain.Student;
 import com.nhnacademy.day3.student.repository.StudentRepository;
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
 
+
+@RequestMapping(value = "/student/view.do", method= RequestMapping.Method.GET)
 public class StudentViewController implements Command {
-
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
-
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -41,5 +34,6 @@ public class StudentViewController implements Command {
 
 //        req.getRequestDispatcher("/student/view.jsp").forward(req,resp);
         return "/student/view.jsp";
+//        return "/WEB-INF/views/student/view.jsp";
     }
 }

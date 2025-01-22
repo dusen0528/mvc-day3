@@ -1,20 +1,16 @@
 package com.nhnacademy.day3.student.servlet;
 
-import com.nhnacademy.day3.student.domain.Command;
+import com.nhnacademy.day3.student.annotation.RequestMapping;
+import com.nhnacademy.day3.student.controller.Command;
 import com.nhnacademy.day3.student.domain.Gender;
 import com.nhnacademy.day3.student.domain.Student;
 import com.nhnacademy.day3.student.repository.StudentRepository;
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-
 @Slf4j
+@RequestMapping(value = "/student/register.do", method = RequestMapping.Method.POST)
 public class StudentRegisterController implements Command {
 
 

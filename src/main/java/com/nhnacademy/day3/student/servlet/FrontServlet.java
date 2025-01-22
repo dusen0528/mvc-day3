@@ -1,6 +1,7 @@
 package com.nhnacademy.day3.student.servlet;
 
-import com.nhnacademy.day3.student.domain.Command;
+import com.nhnacademy.day3.student.controller.Command;
+import com.nhnacademy.day3.student.factory.ControllerFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,6 +26,13 @@ resolveServlet 메소드는 URL에 따라 실제 처리할 서블릿을 결정�
 @WebServlet(name = "frontServlet", urlPatterns = "*.do")
 public class FrontServlet extends HttpServlet {
     private static final String REDIRECT_PREFIX = "redirect:";
+    private ControllerFactory controllerFactory;  // ControllerFactory 추가
+
+
+    @Override
+    public void init() throws  ServletException{
+        controllerFactory = (ControllerFactory) getServletContext().getAttribute("controllerFactory");
+    }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,7 +42,9 @@ public class FrontServlet extends HttpServlet {
 
         try {
 
-            Command command = resolveCommand(req.getServletPath(), req.getMethod());
+//            Command command = resolveCommand(req.getServletPath(), req.getMethod());
+            Command command = (Command) controllerFactory.getBean(req.getMethod(), req.getServletPath());
+
 
             if (command == null) {
                 throw new ServletException("지원하지 않는 URL 입니다 " + req.getServletPath());
@@ -66,31 +76,4 @@ public class FrontServlet extends HttpServlet {
         }
     }
 
-    private Command resolveCommand(String servletPath, String method) {
-        Command command = null;
-
-        if ("/error.do".equals(servletPath)) {
-            command = new ErrorController();
-        } else if ("/student/list.do".equals(servletPath) && "GET".equalsIgnoreCase(method)) {
-            command = new StudentListController();
-        } else if ("/student/view.do".equals(servletPath) && "GET".equalsIgnoreCase(method)) {
-            command = new StudentViewController();
-        } else if ("/student/register.do".equals(servletPath)) {
-            if ("GET".equalsIgnoreCase(method)) {
-                command = new StudentRegisterFormController();
-            } else if ("POST".equalsIgnoreCase(method)) {
-                command = new StudentRegisterController();
-            }
-        } else if ("/student/update.do".equals(servletPath)) {
-            if ("GET".equalsIgnoreCase(method)) {
-                command = new StudentUpdateFormController();
-            } else if ("POST".equalsIgnoreCase(method)) {
-                command = new StudentUpdateController();
-            }
-        } else if ("/student/delete.do".equals(servletPath) && "POST".equalsIgnoreCase(method)) {
-            command = new StudentDeleteController();
-        }
-
-        return command;
-    }
 }

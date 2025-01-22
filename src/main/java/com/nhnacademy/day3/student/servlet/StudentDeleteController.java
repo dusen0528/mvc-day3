@@ -1,10 +1,13 @@
 package com.nhnacademy.day3.student.servlet;
 
-import com.nhnacademy.day3.student.domain.Command;
+import com.nhnacademy.day3.student.annotation.RequestMapping;
+import com.nhnacademy.day3.student.controller.Command;
 import com.nhnacademy.day3.student.repository.StudentRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
+@RequestMapping(value = "/student/delete.do", method = RequestMapping.Method.POST)
 public class StudentDeleteController implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

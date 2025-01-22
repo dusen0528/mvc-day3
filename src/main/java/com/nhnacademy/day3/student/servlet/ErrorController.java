@@ -1,16 +1,13 @@
 package com.nhnacademy.day3.student.servlet;
 
-import com.nhnacademy.day3.student.domain.Command;
-import com.nhnacademy.day3.student.repository.StudentRepository;
+import com.nhnacademy.day3.student.annotation.RequestMapping;
+import com.nhnacademy.day3.student.controller.Command;
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
 
+@RequestMapping(value = "/error.do")
 public class ErrorController implements Command {
 
 
